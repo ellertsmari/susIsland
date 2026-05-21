@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="is">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sustainable Island — eigið kennslukerfi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700;800&family=Inter:wght@300;400;500;600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script>
+      // Apply saved/preferred theme before paint to avoid a flash
+      (function () {
+        try {
+          var k = 'si-theme';
+          var s = localStorage.getItem(k);
+          var prefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+          if (s === 'light' || (!s && prefersLight)) {
+            document.documentElement.setAttribute('data-theme', 'light');
+          }
+        } catch (e) {}
+      })();
+    </script>
+</head>
+<body>
+    <!-- Scroll progress bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Theme toggle -->
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Skipta um þema" title="Ljóst / dökkt þema">
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+        </svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+        </svg>
+    </button>
+
+    <!-- Animated background -->
+    <canvas id="bgCanvas"></canvas>
+    <div class="grid-overlay"></div>
+
+    <!-- Side navigation -->
+    <nav class="side-nav" id="sideNav">
+        <a href="#hero" class="nav-dot active" data-label="Intro"></a>
+        <a href="#who" class="nav-dot" data-label="Teymið"></a>
+        <a href="#verkefnid" class="nav-dot" data-label="Verkefnið"></a>
+        <a href="#vandamal" class="nav-dot" data-label="Vandamál"></a>
+        <a href="#hugmyndin" class="nav-dot" data-label="Hugmynd"></a>
+        <a href="#forritun" class="nav-dot" data-label="Forritun"></a>
+        <a href="#kerfid" class="nav-dot" data-label="Kerfið"></a>
+        <a href="#spurningar" class="nav-dot" data-label="Spurningar"></a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="section hero" id="hero">
+        <div class="hero-inner">
+            <div class="hero-tag">
+                <span class="dot dot-r"></span>
+                <span class="dot dot-y"></span>
+                <span class="dot dot-g"></span>
+                <span class="hero-tag-text">sustainable-island.sh</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="char-wrap" id="heroTitle">Sustainable Island</span>
+            </h1>
+            <p class="hero-sub">
+                <span class="bracket">&lt;</span>
+                <span class="typing" id="typing">eigið kennslukerfi — frá hugmynd að veruleika</span>
+                <span class="caret">|</span>
+                <span class="bracket">/&gt;</span>
+            </p>
+            <div class="hero-meta">
+                <span class="meta-pill"><span class="pill-dot"></span> Erasmus+ · 3 skólar</span>
+                <span class="meta-pill">React · Node · MySQL</span>
+                <span class="meta-pill">Smíðað 2024–2026</span>
+            </div>
+            <div class="scroll-cue">
+                <span>skrunaðu til að byrja</span>
+                <div class="cue-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHO -->
+    <section class="section who" id="who">
+        <div class="container">
+            <header class="section-head">
+                <h2 class="section-title"><span class="b">&lt;</span> Hverjir erum við? <span class="b">/&gt;</span></h2>
+                <div class="section-line"></div>
+            </header>
+
+            <figure class="who-photo reveal">
+                <img src="images/smari-jakub.jpg" alt="Smári og Jakub spjalla úti" loading="lazy" />
+                <figcaption><span class="b">//</span> Smári &amp; Jakub</figcaption>
+            </figure>
+
+            <div class="who-grid">
+                <article class="person-card reveal" data-tilt>
+                    <div class="card-glow"></div>
+                    <div class="card-header">
+                        <span class="avatar-frame">JK</span>
+                        <div>
+                            <h3>Jakub</h3>
+                            <p class="role">// hönnun UI/UX &amp; smá kóði</p>
+                        </div>
+                    </div>
+                    <ul class="bullet-list">
+                        <li><span class="li-dot"></span>Hér síðan 2022</li>
+                        <li><span class="li-dot"></span>Elskar hönnun, kóða, tölvuleiki og tónlist</li>
+                        <li><span class="li-dot"></span>Alltaf að prófa eitthvað nýtt</li>
+                        <li><span class="li-dot li-accent"></span>Fyrrum nemandi Vefskólans</li>
+                    </ul>
+                    <div class="card-stat">
+                        <span class="stat-num" data-target="4">0</span>
+                        <span class="stat-lbl">ára kennsla</span>
+                    </div>
+                </article>
+
+                <article class="person-card reveal" data-tilt>
+                    <div class="card-glow"></div>
+                    <div class="card-header">
+                        <span class="avatar-frame">SM</span>
+                        <div>
+                            <h3>Smári</h3>
+                            <p class="role">// kóði &amp; tæknin</p>
+                        </div>
+                    </div>
+                    <ul class="bullet-list">
+                        <li><span class="li-dot"></span>Hér síðan 2015 — <em>frá upphafi</em></li>
+                        <li><span class="li-dot"></span>Elskar forritun og vefþróun</li>
+                        <li><span class="li-dot"></span>Allt sem snýst um að sitja og hugsa</li>
+                    </ul>
+                    <div class="card-stat">
+                        <span class="stat-num" data-target="11">0</span>
+                        <span class="stat-lbl">ára kennsla</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- VERKEFNIÐ -->
+    <section class="section verkefnid" id="verkefnid">
+        <div class="container">
+            <header class="section-head">
+                <h2 class="section-title"><span class="b">&lt;</span> Sustainable Island verkefnið <span class="b">/&gt;</span></h2>
+                <div class="section-line"></div>
+                <p class="section-lede"><button type="button" class="erasmus-link" id="erasmusBtn" aria-haspopup="dialog" title="Spila myndband">Erasmus+<span class="play-badge" aria-hidden="true">▶</span></button> samstarf þriggja skóla þar sem nemendur frá þremur löndum vinna saman að sjálfbærni-tengdum vefverkefnum — þvert á landamæri, tungumál og tímabelti.</p>
+            </header>
+
+            <div class="school-grid">
+                <article class="school-card reveal" data-tilt>
+                    <div class="school-flag">🇮🇸</div>
+                    <h3>Vefskólinn</h3>
+                    <p class="school-loc">// Hafnarfjörður, Ísland</p>
+                </article>
+                <article class="school-card reveal" data-tilt>
+                    <div class="school-flag">🇩🇰</div>
+                    <h3>Tech College</h3>
+                    <p class="school-loc">// Aalborg, Danmörk</p>
+                </article>
+                <article class="school-card reveal" data-tilt>
+                    <div class="school-flag">🇪🇸</div>
+                    <h3>I.E.S. El Rincón</h3>
+                    <p class="school-loc">// Gran Canaria, Spánn</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- VANDAMÁLIÐ -->
+    <section class="section vandamal" id="vandamal">
+        <div class="container">
+            <header class="section-head">
+                <h2 class="section-title"><span class="b">&lt;</span> Vandamálið <span class="b">/&gt;</span></h2>
+                <div class="section-line"></div>
+                <p class="section-lede">Við erum með <strong class="accent">þrjá skóla</strong>, hver með sitt eigið kennslukerfi og sín eigin tól. Við höfum unnið saman að þessu verkefni árum saman — og það er alltaf sama vandamálið: <strong>upplýsingarnar liggja út um allt.</strong></p>
+            </header>
+
+            <div class="tool-scatter reveal">
+                <span class="tool-chip">Google Drive</span>
+                <span class="tool-chip">GitHub</span>
+                <span class="tool-chip">Teams</span>
+                <span class="tool-chip">Slack</span>
+                <span class="tool-chip">Discord</span>
+                <span class="tool-chip">Tölvupóstur</span>
+                <span class="tool-chip">Google Docs</span>
+                <span class="tool-chip">WhatsApp</span>
+            </div>
+
+            <p class="punchline reveal"><span class="b">//</span> hvar var skjalið aftur?</p>
+        </div>
+    </section>
+
+    <!-- HUGMYNDIN -->
+    <section class="section hugmyndin" id="hugmyndin">
+        <div class="container">
+            <header class="section-head">
+                <h2 class="section-title"><span class="b">&lt;</span> Hugmyndin <span class="b">/&gt;</span></h2>
+                <div class="section-line"></div>
+                <p class="section-lede">Hvað ef við myndum smíða <strong class="accent">okkar eigið kerfi?</strong> Eitt kerfi — einn staður fyrir allt.</p>
+            </header>
+
+            <figure class="figma-frame reveal">
+                <div class="code-bar">
+                    <span class="dot dot-r"></span>
+                    <span class="dot dot-y"></span>
+                    <span class="dot dot-g"></span>
+                    <span class="code-file">hugmyndavinna.fig</span>
+                    <a class="btn" href="https://www.figma.com/file/DDMKHEnhVaDldaXSpY5LNt?node-id=1281:2274&locale=en&type=design" target="_blank" rel="noopener">Opna í Figma ↗</a>
+                </div>
+                <div class="figma-view">
+                    <iframe
+                        title="Sustainable Island — hugmyndavinna í Figma"
+                        src="https://www.figma.com/embed?embed_host=share&url=https%3A%2F%2Fwww.figma.com%2Ffile%2FDDMKHEnhVaDldaXSpY5LNt%3Fnode-id%3D1281%3A2274%26locale%3Den%26type%3Ddesign"
+                        allowfullscreen
+                        loading="lazy"></iframe>
+                </div>
+                <figcaption class="shot-cap"><span class="b">//</span> Jakub sýnir hugmyndavinnuna</figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <!-- FORRITUN -->
+    <section class="section forritun" id="forritun">
+        <div class="container">
+            <header class="section-head">
+                <h2 class="section-title"><span class="b">&lt;</span> Forritunin <span class="b">/&gt;</span></h2>
+                <div class="section-line"></div>
+            </header>
+
+            <div class="coding-wrap">
+                <div class="code-window reveal">
+                    <div class="code-bar">
+                        <span class="dot dot-r"></span>
+                        <span class="dot dot-y"></span>
+                        <span class="dot dot-g"></span>
+                        <span class="code-file">sus-island.build.js</span>
+                    </div>
+                    <pre class="code-body" id="codeBody"></pre>
+                </div>
+
+                <div class="coding-text reveal">
+                    <p class="big-quote">Á tímum <span class="hero-w">gervigreindar</span> er loksins hægt að smíða hugbúnað sem passar <span class="hero-w">fullkomlega</span>.</p>
+                    <p>Áður tók það mánuði eða ár að smíða sérsniðið kerfi — það borgaði sig sjaldan fyrir eitt einstakt verkefni. Það er breytt.</p>
+                    <ul class="strength-list">
+                        <li><span class="check">✓</span> Gervigreind gerir hugbúnaðargerð margfalt hraðari</li>
+                        <li><span class="check">✓</span> Borgar sig nú að sérsníða kerfi fyrir EITT verkefni</li>
+                        <li><span class="check">✓</span> Frá hugmynd að keyrandi kerfi á vikum, ekki árum</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KERFIÐ -->
+    <section class="section kerfid" id="kerfid">
+        <div class="container">
+            <header class="section-head">
+                <h2 class="section-title"><span class="b">&lt;</span> Kerfið <span class="b">/&gt;</span></h2>
+                <div class="section-line"></div>
+                <p class="section-lede">Förum í gegnum kerfið út frá þremur notendum — fyrst <strong class="accent">nemandinn</strong>, svo <strong class="accent">kennarinn</strong> og loks <strong class="accent">stjórnandinn</strong>. Smelltu á skjámynd til að stækka.</p>
+            </header>
+
+            <!-- Nemandinn (student journey) -->
+            <h3 class="sub-head reveal"><span class="b">#</span> Nemandinn — ferð nemandans</h3>
+            <div class="shot-grid">
+                <figure class="shot wide reveal">
+                    <div class="browser-frame">
+                        <div class="browser-bar">
+                            <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                            <span class="addr">sustainable-island.ieselrincon.es/login</span>
+                        </div>
+                        <div class="browser-view"><img src="screenshots/login.png" alt="Innskráning" loading="lazy" /></div>
+                    </div>
+                    <figcaption class="shot-cap"><span class="b">//</span> Innskráning</figcaption>
+                </figure>
+                <figure class="shot reveal">
+                    <div class="browser-frame">
+                        <div class="browser-bar">
+                            <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                            <span class="addr">sustainable-island.ieselrincon.es/student-portal/group-formation</span>
+                        </div>
+                        <div class="browser-view"><img src="screenshots/group_formation.png" alt="Hópamyndun" loading="lazy" /></div>
+                    </div>
+                    <figcaption class="shot-cap"><span class="b">//</span> Hópamyndun — velja skóla, áherslu og tæknistakk</figcaption>
+                </figure>
+                <figure class="shot reveal">
+                    <div class="browser-frame">
+                        <div class="browser-bar">
+                            <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                            <span class="addr">sustainable-island.ieselrincon.es/student-portal/project-description</span>
+                        </div>
+                        <div class="browser-view"><img src="screenshots/Project_description.png" alt="Verkefnislýsing" loading="lazy" /></div>
+                    </div>
+                    <figcaption class="shot-cap"><span class="b">//</span> Verkefnislýsing</figcaption>
+                </figure>
+                <figure class="shot reveal">
+                    <div class="browser-frame">
+                        <div class="browser-bar">
+                            <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                            <span class="addr">sustainable-island.ieselrincon.es/student-portal/team-hub</span>
+                        </div>
+                        <div class="browser-view"><img src="screenshots/skila_inn.png" alt="Team Hub" loading="lazy" /></div>
+                    </div>
+                    <figcaption class="shot-cap"><span class="b">//</span> Team Hub — skrá verkefnið, hlekki og myndir</figcaption>
+                </figure>
+                <figure class="shot reveal">
+                    <div class="browser-frame">
+                        <div class="browser-bar">
+                            <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                            <span class="addr">sustainable-island.ieselrincon.es/student-portal/peer-evaluation</span>
+                        </div>
+                        <div class="browser-view"><img src="screenshots/Jafningjamat_sjalfsamat.png" alt="Jafningjamat og sjálfsmat" loading="lazy" /></div>
+                    </div>
+                    <figcaption class="shot-cap"><span class="b">//</span> Jafningjamat &amp; sjálfsmat</figcaption>
+                </figure>
+                <figure class="shot wide reveal">
+                    <div class="browser-frame">
+                        <div class="browser-bar">
+                            <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                            <span class="addr">sustainable-island.ieselrincon.es/student-portal/presentation-evaluation</span>
+                        </div>
+                        <div class="browser-view"><img src="screenshots/group_peer_assessment.png" alt="Kynningarmat" loading="lazy" /></div>
+                    </div>
+                    <figcaption class="shot-cap"><span class="b">//</span> Kynningarmat — meta kynningar annarra teyma</figcaption>
+                </figure>
+                <figure class="shot wide reveal">
+                    <div class="browser-frame">
+                        <div class="browser-bar">
+                            <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                            <span class="addr">sustainable-island.ieselrincon.es/student-portal/gallery</span>
+                        </div>
+                        <div class="browser-view scrollview">
+                            <div class="stack">
+                                <img class="stack-top" src="screenshots/Showcase_upper.png" alt="Sýningarsalur — efri hluti" loading="lazy" />
+                                <img class="stack-bottom" src="screenshots/Showcase_lower_half.png" alt="Sýningarsalur — neðri hluti" loading="lazy" />
+                            </div>
+                        </div>
+                    </div>
+                    <figcaption class="shot-cap"><span class="b">//</span> Sýningarsalur (gallerí) — skrunaðu í gegnum heila síðu eins og í tölvunni</figcaption>
+                </figure>
+            </div>
+
+            <!-- Kennarinn (teacher journey) -->
+            <h3 class="sub-head reveal"><span class="b">#</span> Kennarinn — verkfæri kennarans</h3>
+            <div class="shot-grid">
+                <figure class="shot wide reveal">
+                    <div class="browser-frame">
+                        <div class="browser-bar">
+                            <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                            <span class="addr">sustainable-island.ieselrincon.es/teacher-portal</span>
+                        </div>
+                        <div class="browser-view"><img src="screenshots/Team_formation.png" alt="Team Assignment" loading="lazy" /></div>
+                    </div>
+                    <figcaption class="shot-cap"><span class="b">//</span> Team Assignment — raða nemendum í teymi eftir óskum</figcaption>
+                </figure>
+                <figure class="shot wide reveal">
+                    <div class="browser-frame">
+                        <div class="browser-bar">
+                            <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                            <span class="addr">sustainable-island.ieselrincon.es/teacher-portal</span>
+                        </div>
+                        <div class="browser-view"><img src="screenshots/Team_Overview.png" alt="Team Overview" loading="lazy" /></div>
+                    </div>
+                    <figcaption class="shot-cap"><span class="b">//</span> Team Overview — yfirlit teyma og framvindu</figcaption>
+                </figure>
+                <figure class="shot reveal">
+                    <div class="browser-frame">
+                        <div class="browser-bar">
+                            <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                            <span class="addr">sustainable-island.ieselrincon.es/teacher-portal</span>
+                        </div>
+                        <div class="browser-view"><img src="screenshots/Peer_eval_teachers_view.png" alt="Peer Evaluations / Eval Graph" loading="lazy" /></div>
+                    </div>
+                    <figcaption class="shot-cap"><span class="b">//</span> Peer Evaluations &amp; Eval Graph — myndræn greining á jafningjamati</figcaption>
+                </figure>
+                <figure class="shot reveal">
+                    <div class="browser-frame">
+                        <div class="browser-bar">
+                            <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                            <span class="addr">sustainable-island.ieselrincon.es/teacher-portal</span>
+                        </div>
+                        <div class="browser-view"><img src="screenshots/Project_grading_teachers.png" alt="Project Grading" loading="lazy" /></div>
+                    </div>
+                    <figcaption class="shot-cap"><span class="b">//</span> Project Grading — einkunnagjöf verkefna</figcaption>
+                </figure>
+            </div>
+
+            <!-- El Mando (admin area) -->
+            <h3 class="sub-head reveal"><span class="b">#</span> El Mando — stjórnsvæðið</h3>
+            <div class="shot-grid">
+                <figure class="shot wide reveal">
+                    <div class="browser-frame">
+                        <div class="browser-bar">
+                            <span class="dot dot-r"></span><span class="dot dot-y"></span><span class="dot dot-g"></span>
+                            <span class="addr">sustainable-island.ieselrincon.es/users</span>
+                        </div>
+                        <div class="browser-view"><img src="screenshots/admin.png" alt="El Mando stjórnsvæði" loading="lazy" /></div>
+                    </div>
+                    <figcaption class="shot-cap"><span class="b">//</span> El Mando — notendur, skólar, hlutverk, verkefni, skil og fleira</figcaption>
+                </figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPURNINGAR -->
+    <section class="section questions" id="spurningar">
+        <div class="q-inner">
+            <h2 class="q-title">
+                <span class="b big">&lt;</span>
+                <span class="q-text">Spurningar?</span>
+                <span class="b big">/&gt;</span>
+            </h2>
+            <div class="q-cursor"></div>
+            <p class="q-foot">Takk fyrir áheyrnina — Sustainable Island 2026</p>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" aria-hidden="true">
+        <div class="lightbox-backdrop" id="lightboxBackdrop"></div>
+        <button class="lightbox-close" id="lightboxClose" aria-label="Loka">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+                <path d="M6 6l12 12M6 18L18 6" />
+            </svg>
+        </button>
+        <figure class="lightbox-stage" id="lightboxStage">
+            <img id="lightboxImg" alt="" />
+            <figcaption id="lightboxCap"></figcaption>
+        </figure>
+    </div>
+
+    <!-- Erasmus video modal -->
+    <div class="video-modal" id="videoModal" role="dialog" aria-modal="true" aria-label="Erasmus+ myndband" aria-hidden="true">
+        <div class="video-backdrop" id="videoBackdrop"></div>
+        <button class="video-close" id="videoClose" type="button" aria-label="Loka">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+                <path d="M6 6l12 12M6 18L18 6" />
+            </svg>
+        </button>
+        <div class="video-stage">
+            <video id="erasmusVideo" controls playsinline preload="none">
+                <source src="original_videomp_.mp4" type="video/mp4" />
+                Vafrinn þinn styður ekki myndbandsspilun.
+            </video>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
